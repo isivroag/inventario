@@ -26,13 +26,13 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-        <li class="nav-item  has-treeview <?php echo ($pagina == 'producto' ||  $pagina == 'umedida') ? "menu-open" : ""; ?>">
+        <li class="nav-item  has-treeview <?php echo ($pagina == 'producto' ||  $pagina == 'umedida' ||  $pagina == 'cntareq') ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link  <?php echo ($pagina == 'producto' || $pagina == 'umedida' ) ? "active" : ""; ?>">
+          <a href="#" class="nav-link  <?php echo ($pagina == 'producto' || $pagina == 'umedida' ||  $pagina == 'cntareq') ? "active" : ""; ?>">
             <i class="nav-icon fas fa-cogs "></i>
             <p>
-              Catalogos
+              Operaciones
               <i class="right fas fa-angle-left"></i>
             </p>
           </a>
@@ -54,12 +54,21 @@
                 <p>Productos</p>
               </a>
             </li>
+
+            <li class="nav-item">
+              <a href="cntareq.php" class="nav-link <?php echo ($pagina == 'cntareq') ? "active seleccionado" : ""; ?>  ">
+                <i class="far fa-clipboard nav-icon"></i>
+                <p>Requisiciones</p>
+              </a>
+            </li>
            
 
 
           </ul>
 
         </li>
+
+        
 
 
         <?php if ($_SESSION['s_rol'] == '3') {
