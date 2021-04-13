@@ -16,7 +16,7 @@ include_once "templates/navegacion.php";
   <section class="content ">
     <div class="container-fluid ">
       <div class="card">
-        <div class="card-header bg-gradient-primary">
+        <div class="card-header bg-gradient-green">
           <h3>TECNOLOGÍAS DE INFORMACIÓN EMPRESARIAL</h3>
         </div>
 

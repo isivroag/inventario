@@ -42,7 +42,7 @@ $message = "";
 
         <!-- Default box -->
         <div class="card">
-            <div class="card-header bg-gradient-blue">
+            <div class="card-header bg-gradient-green">
                 <div class="card-title">
                 <h1 class="card-title  mx-auto">Usuarios</h1>
                 </div>
@@ -52,7 +52,7 @@ $message = "";
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <button id="btnNuevo" type="button" class="btn bg-gradient-blue btn-ms" data-toggle="modal"><i class="fas fa-user-plus text-light"></i><span class="text-light"> Nuevo</span></button>
+                        <button id="btnNuevo" type="button" class="btn bg-gradient-green btn-ms" data-toggle="modal"><i class="fas fa-user-plus text-light"></i><span class="text-light"> Nuevo</span></button>
                     </div>
                 </div>
                 <br>
@@ -62,7 +62,7 @@ $message = "";
                         <div class="col-lg-12">
                             <div class="table-responsive">
                                 <table name="tablaUsuario" id="tablaUsuario" class="table table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="width:100%">
-                                    <thead class="text-center bg-gradient-blue">
+                                    <thead class="text-center bg-gradient-green">
                                         <tr>
                                             <th>Id</th>
                                             <th>Nombre</th>
@@ -118,7 +118,7 @@ $message = "";
         <div class="modal fade" id="modalU" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <div class="modal-header bg-gradient-primary">
+                    <div class="modal-header bg-gradient-green">
                         <h5 class="modal-title" id="exampleModalLabel">NUEVO USUARIO</h5>
 
                     </div>

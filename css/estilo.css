@@ -20,6 +20,9 @@
 .bg-gradient-orange {
     color: white;
 }
+.bg-orange {
+    color: white;
+}
 
 .bg-tec {
     color: white !important;
@@ -28,7 +31,7 @@
 
 .active {
     color: white;
-    background-color: rgb(0, 24, 133) !important;
+    background-color: rgb(0,45,3) !important;
 }
 
 .hide_column {
@@ -36,15 +39,15 @@
 }
 
 .seleccionado {
-    color: #ffffff !important;
-    background-color: rgba(29, 61, 206, 0.9) !important;
+    color: white !important;
+    background-color: rgba(17, 117, 23, 0.932) !important;
     border-color: #dee2e6 #dee2e6 #ffffff !important;
 }
 
 .nav-pills .nav-link.active,
 .nav-pills .show>.nav-link {
     color: #ffffff;
-    background-color: #007bff;
+    background-color: #0e791c;
 }
 
 .mrm {
@@ -97,4 +100,12 @@
     left: 50%;
     margin-top: 120px;
     margin-left: 20px;
+}
+
+.bg-green {
+    background-color: #317710 !important;
+}
+
+.bg-gradient-green {
+    background: #317710 linear-gradient(180deg, #317710, #055518) repeat-x !important;
 }

@@ -8,83 +8,40 @@ include_once "templates/navegacion.php";
 
 
 include_once 'bd/conexion.php';
-$objeto = new conn();
-$conexion = $objeto->connect();
-$tokenid = md5($_SESSION['s_usuario']);
-$usuario=$_SESSION['s_nombre'];
 
+$folio = (isset($_GET['folio'])) ? $_GET['folio'] : '';
 
-if (isset($_GET['folio'])) {
-    $folio = $_GET['folio'];
-    $consulta = "SELECT * FROM requisicion WHERE folio_tmp='$folio'";
+if ($folio != "") {
+    $objeto = new conn();
+    $conexion = $objeto->connect();
+    $tokenid = md5($_SESSION['s_usuario']);
+
+    $consulta = "SELECT * FROM requisicion where folio_req='$folio'";
     $resultadobpres = $conexion->prepare($consulta);
     $resultadobpres->execute();
-
-
-    if ($resultadobpres->rowCount() >= 1) {
-        $databpres = $resultadobpres->fetchAll(PDO::FETCH_ASSOC);
-        foreach ($databpres as $dtbpres) {
-            $requisicion = $dtbpres['folio_req'];
-        }
-        $consulta = "SELECT * FROM tmp_req WHERE folio_req='$folio'";
-    }
-} else {
-    $consulta = "SELECT * FROM tmp_req WHERE estado_req=1 and tokenid='$tokenid'";
-    $requisicion = 0;
-}
-
-
-
-$resultado = $conexion->prepare($consulta);
-$resultado->execute();
-
-if ($resultado->rowCount() >= 1) {
-    $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+    $data = $resultadobpres->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($data as $dt) {
         $folio = $dt['folio_req'];
+        $folio_tmp = $dt['folio_tmp'];
         $fecha = $dt['fecha_req'];
         $solicitante = $dt['solicitante'];
         $fraccionamiento = $dt['fraccionamiento'];
         $obs_req = $dt['obs_req'];
-       
     }
-   
+    $consultadet = "SELECT * FROM detalle_req WHERE folio_req='$folio' ORDER BY id_reg";
+    $resultadodet = $conexion->prepare($consultadet);
+    $resultadodet->execute();
+    $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
 } else {
-    $fecha = date('Y-m-d');
-    $consultatmp = "INSERT INTO tmp_req (tokenid,estado_req,fecha_req,usuario) VALUES('$tokenid','1','$fecha','$usuario')";
-    $resultadotmp = $conexion->prepare($consultatmp);
-    $resultadotmp->execute();
-
-    $consultatmp = "SELECT folio_req FROM tmp_req WHERE tokenid='$tokenid' and estado_req=1 ORDER BY folio_req DESC LIMIT 1";
-    $resultadotmp = $conexion->prepare($consultatmp);
-    $resultadotmp->execute();
-    $datatmp = $resultadotmp->fetchAll(PDO::FETCH_ASSOC);
-    foreach ($datatmp as $dt) {
-        $folio = $dt['folio_req'];
-        $solicitante = "";
-        $fraccionamiento = "";
-        $obs_req = "";
-       
-    }
+    echo '<script type="text/javascript">';
+    echo 'window.location.href="cntareq.php";';
+    echo '</script>';
 }
 
-$message = "";
 
 
 
-
-$consultacon = "SELECT * FROM producto WHERE estado_prod=1 ORDER BY id_prod";
-$resultadocon = $conexion->prepare($consultacon);
-$resultadocon->execute();
-$datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
-
-
-
-$consultadet = "SELECT * FROM detalle_tmp WHERE folio_req='$folio' ORDER BY id_reg";
-$resultadodet = $conexion->prepare($consultadet);
-$resultadodet->execute();
-$datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
 
 
 
@@ -159,7 +116,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
 
             </div>
 
-            <div class="card-header bg-gradient-green text-light">
+            <div class="card-header bg-gradient-primary text-light">
                 <h1 class="card-title mx-auto">Requisición</h1>
             </div>
 
@@ -169,8 +126,10 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                     <div class="col-lg-12">
 
 
-                        <!--<button id="btnNuevo" type="button" class="btn bg-gradient-green btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
-                        <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                        <!--<button id="btnNuevo" type="button" class="btn bg-gradient-primary btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
+                        <button id="btnNuevo" name="btnNuevo" type="button" class="btn bg-gradient-orange btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
+                        <button id="btnGuardar" name="btnGuardar" type="button" class="btn bg-success" value="btnGuardar"><i class="far fa-edit"></i> Editar</button>
+                        <button id="btnVer" name="btnVer" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-file-pdf"></i> Preview</button>
                         <!--<button id="btnNuevo" type="button" class="btn bg-gradient-primary btn-ms" data-toggle="modal"><i class="fas fa-envelope-square"></i> Enviar</button>-->
                     </div>
                 </div>
@@ -186,14 +145,9 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
 
                         <div class="card card-widget" style="margin-bottom:0px;">
 
-                            <div class="card-header bg-gradient-green " style="margin:0px;padding:8px">
-                                <div class="card-tools" style="margin:0px;padding:0px;">
+                            <div class="card-header bg-gradient-primary " style="margin:0px;padding:8px">
 
-                                    <button id="btnGuardarHead" name="btnGuardarHead" type="button" class="btn bg-success btn-sm">
-                                        <i class="far fa-save"></i>
-                                    </button>
-                                </div>
-                                <h1 class=" card-title punto bg-blue"> 1</h1>
+
                                 <h1 class="card-title "> Datos de la Requisición</h1>
                             </div>
 
@@ -203,19 +157,19 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
 
                                     <div class="col-lg-5">
                                         <div class="form-group">
-                                            <input type="hidden" class="form-control" name="requisicion" id="requisicion" value="<?php echo $requisicion; ?>">
+                                            <input type="hidden" class="form-control" name="folio_tmp" id="folio_tmp" value="<?php echo $folio_tmp; ?>">
                                             <input type="hidden" class="form-control" name="tokenid" id="tokenid" value="<?php echo $tokenid; ?>">
                                             <label for="solicitante" class="col-form-label">Solicitante:</label>
                                             <input type="text" class="form-control" name="solicitante" id="solicitante" value="<?php echo $solicitante; ?>">
                                         </div>
                                     </div>
 
-                                
+
 
                                     <div class="col-lg-2">
                                         <div class="form-group input-group-sm">
                                             <label for="fecha" class="col-form-label">Fecha:</label>
-                                            <input type="date" class="form-control" name="fecha" id="fecha" value="<?php echo $fecha; ?>">
+                                            <input type="text" class="form-control" name="fecha" id="fecha" value="<?php echo $fecha; ?>">
                                         </div>
                                     </div>
 
@@ -224,7 +178,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                                         <div class="form-group input-group-sm">
                                             <label for="folior" class="col-form-label">Folio:</label>
                                             <input type="hidden" class="form-control" name="folio" id="folio" value="<?php echo $folio; ?>">
-                                            <input type="text" class="form-control" name="folior" id="folior" value="<?php echo  "TMP-" . $folio; ?>">
+                                            <input type="text" class="form-control" name="folior" id="folior" value="<?php echo $folio; ?>">
                                         </div>
                                     </div>
 
@@ -254,85 +208,12 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                             <!--fin modificacion agregar vendedor a presupuesto -->
 
                         </div>
-                        <!-- Formulario Agrear Item -->
-                        <div class="content" style="padding-top:0px;">
-                            <div class="card card-widget " style="margin:2px;padding:5px;">
 
-                                <div class="card-header bg-gradient-green" style="margin:0px;padding:8px;">
-                                    <h1 class=" card-title punto bg-blue">2</h1>
-                                    <h1 class="card-title" style="text-align:center;">Agregar Material</h1>
-                                    <div class="card-tools" style="margin:0px;padding:0px;">
-
-                                        <button type="button" class="btn bg-gradient-green btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="card-body " style="margin:0px;padding:2px 5px;">
-                                    <div class="row justify-content-sm-center">
-
-                                        <div class="col-lg-4">
-                                            <div class="input-group input-group-sm">
-
-                                                <input type="hidden" class="form-control" name="claveconcepto" id="claveconcepto">
-                                               
-
-                                                <label for="concepto" class="col-form-label">Material:</label>
-                                                <div class="input-group input-group-sm">
-                                                    <input type="text" class="form-control" name="concepto" id="concepto" disabled>
-                                                    <span class="input-group-append">
-                                                        <button id="bconcepto" type="button" class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
-                                                    </span>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-
-                                        <div class="col-lg-2">
-                                            <input type="hidden" class="form-control" name="id_umedida" id="id_umedida">
-                                            <label for="nom_umedida" class="col-form-label">U Medida:</label>
-                                            <div class="input-group input-group-sm">
-                                                <input type="text" class="form-control " name="nom_umedida" id="nom_umedida" disabled>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="col-lg-1">
-                                            <label for="cantidad" class="col-form-label">Cantidad:</label>
-                                            <div class="input-group input-group-sm">
-
-                                                <input type="text" class="form-control" name="cantidad" id="cantidad" disabled>
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="col-lg-1 justify-content-center">
-                                            <label for="" class="col-form-label">Acción:</label>
-                                            <div class="input-group-append input-group-sm justify-content-center d-flex">
-                                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Agregar Item">
-                                                    <button type="button" id="btnagregar" name="btnagregar" class="btn btn-sm bg-gradient-green" value="btnGuardar"><i class="fas fa-plus-square"></i></button>
-                                                </span>
-                                                <span class="d-inline-block" tabindex="1" data-toggle="tooltip" title="Limpiar">
-                                                    <button type="button" id="btlimpiar" name="btlimpiar" class="btn btn-sm bg-gradient-purple" value="btnlimpiar"><i class="fas fa-brush"></i></button>
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
                         <!-- Tabla Y TOTALES-->
                         <div class="content" style="padding:5px 0px;">
 
                             <div class="card card-widget" style="margin-bottom:0px;">
-                            <div class="card-header bg-gradient-green " style="margin:0px;padding:8px">
-                            <h1 class=" card-title punto bg-blue">3</h1>
+                                <div class="card-header bg-gradient-primary " style="margin:0px;padding:8px">
                                     <h1 class="card-title "> Listado de Material</h1>
                                 </div>
                                 <div class="card-body" style="margin:0px;padding:3px;">
@@ -344,7 +225,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                                             <div class="table-responsive" style="padding:5px;">
 
                                                 <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed  mx-auto" style="width:100%;">
-                                                    <thead class="text-center bg-gradient-green">
+                                                    <thead class="text-center bg-gradient-primary">
                                                         <tr>
                                                             <th>Id</th>
                                                             <th>Id Mat</th>
@@ -405,7 +286,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
             <div class="modal fade" id="modalConcepto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-md" role="document">
                     <div class="modal-content w-auto">
-                        <div class="modal-header bg-gradient-green">
+                        <div class="modal-header bg-gradient-primary">
                             <h5 class="modal-title" id="exampleModalLabel">BUSCAR MATERIAL</h5>
 
                         </div>
@@ -418,7 +299,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                                         <th>Material</th>
                                         <th>U. Medida</th>
                                         <th>Seleccionar</th>
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -447,17 +328,17 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
 </div>
 
 <script>
-  //window.addEventListener('beforeunload', function(event)  {
+    //window.addEventListener('beforeunload', function(event)  {
 
-  // event.preventDefault();
+    // event.preventDefault();
 
 
-  //event.returnValue ="";
-  //});
+    //event.returnValue ="";
+    //});
 </script>
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/requisicion.js"></script>
+<script src="fjs/req.js"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

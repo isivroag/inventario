@@ -64,14 +64,14 @@ $message = "";
 
         <!-- Default box -->
         <div class="card ">
-            <div class="card-header bg-gradient-primary">
+            <div class="card-header bg-gradient-green">
                 <h4 class="card-title text-center">KARDEX DE PRODUCTO</h4>
             </div>
 
             <div class="card-body">
                 
                 <div class="card">
-                    <div class="card-header bg-gradient-primary">
+                    <div class="card-header bg-gradient-green">
                         INFORMACIÓN DE PRODUCTO
                     </div>
                     <div class="card-body">
@@ -114,7 +114,7 @@ $message = "";
                         <div class="col-lg-12">
                             <div class="table-responsive">
                                 <table name="tablaV" id="tablaV" class="table table-hover table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="font-size:15px;">
-                                    <thead class="text-center bg-gradient-primary">
+                                    <thead class="text-center bg-gradient-green">
                                         <tr>
                                             <th>ID</th>
                                             <th>Fecha</th>

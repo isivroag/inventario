@@ -12,7 +12,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM requisicion WHERE estado_req=1 ORDER BY id_req";
+$consulta = "SELECT * FROM requisicion WHERE estado_req=1 ORDER BY folio_req";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -38,7 +38,7 @@ $message = "";
 
         <!-- Default box -->
         <div class="card">
-            <div class="card-header bg-gradient-primary text-light">
+            <div class="card-header bg-gradient-green text-light">
                 <h1 class="card-title mx-auto">Requisiciones de Material</h1>
             </div>
 
@@ -46,7 +46,7 @@ $message = "";
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <button id="btnNuevo" type="button" class="btn bg-gradient-primary btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
+                        <button id="btnNuevo" type="button" class="btn bg-gradient-green btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
                     </div>
                 </div>
                 <br>
@@ -56,7 +56,7 @@ $message = "";
                         <div class="col-lg-12">
                             <div class="table-responsive">
                                 <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="width:100%">
-                                    <thead class="text-center bg-gradient-primary">
+                                    <thead class="text-center bg-gradient-green">
                                         <tr>
                                             <th>Folio</th>
                                             <th>Fecha</th>

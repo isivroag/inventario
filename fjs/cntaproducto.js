@@ -158,7 +158,7 @@ $(document).ready(function () {
 
     $('.modal-header').css('background-color', '#007bff')
     $('.modal-header').css('color', 'white')
-    $('.modal-title').text('Movimiento')
+    $('.modal-title').text('Movimiento de Inventario')
     $('#modalMOV').modal('show')
   })
 

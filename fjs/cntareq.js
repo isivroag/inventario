@@ -8,7 +8,7 @@ $(document).ready(function () {
           targets: -1,
           data: null,
           defaultContent:
-            "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar' data-toggle='tooltip' data-placement='top' title='Editar'><i class='fas fa-edit'></i></button><button class='btn btn-sm bg-gradient-orange text-light btnMov' data-toggle='tooltip' data-placement='top' title='Movimientos'><i class='fas fa-exchange-alt'></i></button><button class='btn btn-sm bg-gradient-purple text-light btnKardex' data-toggle='tooltip' data-placement='top' title='Kardex'><i class='fas fa-bars'></i></button><button class='btn btn-sm btn-danger btnBorrar' data-toggle='tooltip' data-placement='top' title='Borrar'><i class='fas fa-trash-alt'></i></button></div>",
+            "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar' data-toggle='tooltip' data-placement='top' title='Ver'><i class='fas fa-search'></i></button><button class='btn btn-sm btn-danger btnBorrar' data-toggle='tooltip' data-placement='top' title='Borrar'><i class='fas fa-trash-alt'></i></button></div>",
         },
       ],
   
@@ -45,29 +45,8 @@ $(document).ready(function () {
     $(document).on('click', '.btnEditar', function () {
       fila = $(this).closest('tr')
       id = parseInt(fila.find('td:eq(0)').text())
-  
-      //window.location.href = "actprospecto.php?id=" + id;
-      clave = fila.find('td:eq(1)').text()
-      nombre = fila.find('td:eq(2)').text()
-  
-      precio = fila.find('td:eq(3)').text()
-  
-      cant_prod = fila.find('td:eq(4)').text()
-      umedida = fila.find('td:eq(5)').text()
-  
-  
-      $('#clave').val(clave)
-      $('#nombre').val(nombre)
-      $('#precio').val(precio)
-      $('#umedida').val(umedida)
-  
-  
-      opcion = 2 //editar
-  
-      $('.modal-header').css('background-color', '#007bff')
-      $('.modal-header').css('color', 'white')
-      $('.modal-title').text('Editar Producto')
-      $('#modalCRUD').modal('show')
+
+      window.location.href = 'req.php?folio=' + id
     })
   
     //botón BORRAR
