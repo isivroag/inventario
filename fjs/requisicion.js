@@ -171,6 +171,9 @@ $(document).ready(function() {
                                 },
                             });
                         } else {
+                            console.log(folio);
+                            console.log(requisicion);
+
                             $.ajax({
                                 type: "POST",
                                 url: "bd/modificarreq.php",

@@ -24,7 +24,7 @@ foreach ($dt as $row) {
     $obs = $row['obs_req'];
 }
 
-$consulta = "UPDATE tmp_req SET estado_pres=2 WHERE folio_req='$folio'";
+$consulta = "UPDATE tmp_req SET estado_req=2 WHERE folio_req='$folio'";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 
