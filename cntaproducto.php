@@ -12,7 +12,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM producto WHERE estado_prod=1 ORDER BY id_prod";
+$consulta = "SELECT * FROM vproducto WHERE estado_prod=1 ORDER BY id_prod";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -23,7 +23,10 @@ $resultadob->execute();
 $datab = $resultadob->fetchAll(PDO::FETCH_ASSOC);
 
 $message = "";
-
+$consultat = "SELECT * FROM tipop where estado_tipop=1 order by id_tipop";
+$resultadot = $conexion->prepare($consultat);
+$resultadot->execute();
+$datat = $resultadot->fetchAll(PDO::FETCH_ASSOC);
 
 
 ?>
@@ -67,6 +70,8 @@ $message = "";
                                             <th>Precio</th>
                                             <th>Existencias</th>
                                             <th>U. Medida</th>
+                                            <th>Id Tipo</th>
+                                            <th>Tipo</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -81,6 +86,8 @@ $message = "";
                                                 <td><?php echo $dat['precio_prod'] ?></td>
                                                 <td><?php echo $dat['cant_prod'] ?></td>
                                                 <td><?php echo $dat['umedida'] ?></td>
+                                                <td><?php echo $dat['id_tipop'] ?></td>
+                                                <td><?php echo $dat['nom_tipop'] ?></td>
                                                 <td></td>
                                             </tr>
                                         <?php
@@ -120,6 +127,24 @@ $message = "";
                                     <div class="form-group input-group-sm">
                                         <label for="clave" class="col-form-label">Clave:</label>
                                         <input type="text" class="form-control" name="clave" id="clave" autocomplete="off" placeholder="Clave">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group input-group-sm">
+                                        <label for="tipop" class="col-form-label">Tipo de Material:</label>
+                                        
+                                        <select class="form-control" name="tipop" id="tipop">
+                                                <?php
+                                                foreach($datat as $rowdatat)
+                                                {
+                                                ?>
+                                                <option id="<?php echo $rowdatat['id_tipop'] ?>" value="<?php echo $rowdatat['id_tipop'] ?>"> <?php echo $rowdatat['nom_tipop']?></option>
+
+                                                <?php
+                                                }
+                                                ?>
+                                        </select>
                                     </div>
                                 </div>
 

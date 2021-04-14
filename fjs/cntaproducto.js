@@ -10,6 +10,7 @@ $(document).ready(function () {
         defaultContent:
           "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar' data-toggle='tooltip' data-placement='top' title='Editar'><i class='fas fa-edit'></i></button><button class='btn btn-sm bg-gradient-orange text-light btnMov' data-toggle='tooltip' data-placement='top' title='Movimientos'><i class='fas fa-exchange-alt'></i></button><button class='btn btn-sm bg-gradient-purple text-light btnKardex' data-toggle='tooltip' data-placement='top' title='Kardex'><i class='fas fa-bars'></i></button><button class='btn btn-sm btn-danger btnBorrar' data-toggle='tooltip' data-placement='top' title='Borrar'><i class='fas fa-trash-alt'></i></button></div>",
       },
+      { className: "hide_column", targets: [6] }
     ],
 
     //Para cambiar el lenguaje a español
@@ -60,12 +61,15 @@ $(document).ready(function () {
 
     cant_prod = fila.find('td:eq(4)').text()
     umedida = fila.find('td:eq(5)').text()
+    id_tipop = fila.find('td:eq(6)').text()
+    tipop = fila.find('td:eq(7)').text()
 
 
     $('#clave').val(clave)
     $('#nombre').val(nombre)
     $('#precio').val(precio)
     $('#umedida').val(umedida)
+    $('#tipop').val(id_tipop)
 
 
     opcion = 2 //editar
@@ -110,6 +114,7 @@ $(document).ready(function () {
     var clave = $.trim($('#clave').val())
     var umedida = $.trim($('#umedida').val())
     var precio = $.trim($('#precio').val())
+    var tipop = $.trim($('#tipop').val())
 
     if (nombre.length == 0) {
       Swal.fire({
@@ -123,7 +128,7 @@ $(document).ready(function () {
         url: 'bd/crudproducto.php',
         type: 'POST',
         dataType: 'json',
-        data: { nombre: nombre, clave: clave, umedida: umedida, precio: precio, id: id, opcion: opcion },
+        data: { nombre: nombre, clave: clave, umedida: umedida, precio: precio, id: id,tipop: tipop, opcion: opcion },
         success: function (data) {
           //tablaPersonas.ajax.reload(null, false);
           id = data[0].id_prod
@@ -132,11 +137,13 @@ $(document).ready(function () {
           umedida = data[0].umedida
           precio = data[0].precio_prod
           cantidad = data[0].cant_prod
+          id_tipop = data[0].id_tipop
+          nom_tipop = data[0].nom_tipop
 
           if (opcion == 1) {
-            tablaVis.row.add([id, clave, nombre, precio, cantidad, umedida]).draw()
+            tablaVis.row.add([id, clave, nombre, precio, cantidad, umedida,id_tipop,nom_tipop]).draw()
           } else {
-            tablaVis.row(fila).data([id, clave, nombre, precio, cantidad, umedida]).draw()
+            tablaVis.row(fila).data([id, clave, nombre, precio, cantidad, umedida,id_tipop,nom_tipop]).draw()
           }
         },
       })

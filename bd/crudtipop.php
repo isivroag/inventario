@@ -6,12 +6,7 @@ $conexion = $objeto->connect();
 // Recepción de los datos enviados mediante POST desde el JS   
 
 $nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : '';
-$clave = (isset($_POST['clave'])) ? $_POST['clave'] : '';
-$precio = (isset($_POST['precio'])) ? $_POST['precio'] : '';
-$umedida = (isset($_POST['umedida'])) ? $_POST['umedida'] : '';
-$nombre = (isset($_POST['nombre'])) ? $_POST['nombre'] : '';
-$id_tipop = (isset($_POST['tipop'])) ? $_POST['tipop'] : '';
-
+$nombre = $nombre;
 
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 
@@ -19,27 +14,27 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch($opcion){
     case 1: //alta
-        $consulta = "INSERT INTO producto (clave_prod,nom_prod,umedida,precio_prod,id_tipop) VALUES('$clave','$nombre','$umedida','$precio','$id_tipop') ";			
+        $consulta = "INSERT INTO tipop (nom_tipop) VALUES('$nombre') ";			
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
 
-        $consulta = "SELECT * FROM vproducto ORDER BY id_prod DESC LIMIT 1";
+        $consulta = "SELECT id_tipop,nom_tipop FROM tipop ORDER BY id_tipop DESC LIMIT 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 2: //modificación
-        $consulta = "UPDATE producto SET nom_prod='$nombre',clave_prod='$clave',umedida='$umedida',precio_prod='$precio',id_tipop='$id_tipop' WHERE id_prod='$id' ";		
+        $consulta = "UPDATE tipop SET nom_tipop='$nombre' WHERE id_tipop='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         
-        $consulta = "SELECT * FROM vproducto WHERE id_prod='$id' ";       
+        $consulta = "SELECT id_tipop,nom_tipop FROM tipop WHERE id_tipop='$id' ";       
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;        
     case 3://baja
-        $consulta = "UPDATE producto SET estado_prod=0 WHERE id_prod='$id' ";		
+        $consulta = "UPDATE tipop SET estado_tipop=0 WHERE id_tipop='$id' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
         $data=1;                          

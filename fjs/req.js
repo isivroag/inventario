@@ -48,7 +48,10 @@ $(document).ready(function() {
         },
     });
 
+    $("#btnNuevo").click(function() {
 
+        window.location.href = "requisicion.php";
+    });
 
 
     $("#btnGuardar").click(function() {
@@ -59,4 +62,18 @@ $(document).ready(function() {
     function round(value, decimals) {
         return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
     }
+
+    $(document).on("click", "#btnVer", function() {
+
+        folio = $('#folio').val();
+        var ancho = 1000;
+        var alto = 800;
+        var x = parseInt((window.screen.width / 2) - (ancho / 2));
+        var y = parseInt((window.screen.height / 2) - (alto / 2));
+
+        url = "formatos/pdfreq.php?folio=" + folio;
+
+        window.open(url, "Requisición", "left=" + x + ",top=" + y + ",height=" + alto + ",width=" + ancho + "scrollbar=si,location=no,resizable=si,menubar=no");
+
+    });
 });

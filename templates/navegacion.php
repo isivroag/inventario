@@ -26,10 +26,10 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-        <li class="nav-item  has-treeview <?php echo ($pagina == 'producto' ||  $pagina == 'umedida' ||  $pagina == 'cntareq') ? "menu-open" : ""; ?>">
+        <li class="nav-item  has-treeview <?php echo ($pagina == 'producto' ||  $pagina == 'umedida' ||  $pagina == 'cntareq' ||  $pagina == 'tipop') ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link  <?php echo ($pagina == 'producto' || $pagina == 'umedida' ||  $pagina == 'cntareq') ? "active" : ""; ?>">
+          <a href="#" class="nav-link  <?php echo ($pagina == 'producto' || $pagina == 'umedida' ||  $pagina == 'cntareq' ||  $pagina == 'tipop') ? "active" : ""; ?>">
             <i class="nav-icon fas fa-cogs "></i>
             <p>
               Operaciones
@@ -46,12 +46,17 @@
               </a>
             </li>
 
-            
+            <li class="nav-item">
+              <a href="cntatipop.php" class="nav-link <?php echo ($pagina == 'tipop') ? "active seleccionado" : ""; ?>  ">
+              <i class="fas fa-layer-group nav-icon"></i>
+                <p>Tipo de Materiales</p>
+              </a>
+            </li>
 
             <li class="nav-item">
               <a href="cntaproducto.php" class="nav-link <?php echo ($pagina == 'producto') ? "active seleccionado" : ""; ?>  ">
                 <i class="fas fa-barcode nav-icon"></i>
-                <p>Productos</p>
+                <p>Materiales</p>
               </a>
             </li>
 
@@ -71,8 +76,7 @@
         
 
 
-        <?php if ($_SESSION['s_rol'] == '3') {
-        ?>
+       
           <li class="nav-item has-treeview <?php echo ($pagina == 'resumencxp') ? "menu-open" : ""; ?>">
 
 
@@ -89,18 +93,16 @@
             <ul class="nav nav-treeview">
 
               <li class="nav-item">
-                <a href="resumencxp.php" class="nav-link <?php echo ($pagina == 'resumencxp') ? "active seleccionado" : ""; ?>  ">
+                <a href="inventario.php" class="nav-link <?php echo ($pagina == 'resumencxp') ? "active seleccionado" : ""; ?>  ">
                   <i class="fas fa-file-invoice nav-icon"></i>
-                  <p>Resumen Egresos</p>
+                  <p>Inventario</p>
                 </a>
               </li>
 
 
             </ul>
           </li>
-        <?php
-        }
-        ?>
+     
 
 
 
