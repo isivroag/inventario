@@ -113,26 +113,29 @@ $message = "";
                         <form id="formDatos" action="" method="POST">
                             <div class="modal-body row">
 
-
+                                <div class="col-sm-12">
+                                <input type="text" id="folioreq" name="folioreq">
+                                </div>
                                 <div class="col-sm-12">
 
-
+                                 
 
                                     <div class="form-group">
                                         <label for="exampleInputFile">Subir Archivo</label>
                                         <div class="input-group">
                                             <div class="custom-file">
-                                            <input type="file" class="custom-file-input" name="archivo" id="archivo">
+                                               
+                                                <input type="file" class="custom-file-input" name="archivo" id="archivo">
 
-                                                <label class="custom-file-label" for="archivo"></label>
+                                                <label class="custom-file-label" for="archivo">Elegir Archivo</label>
                                             </div>
                                             <div class="input-group-append">
-                                            <input type="button" class="btn btn-primary upload" value="Subir">
+                                                <button  class="btn btn-primary" id="upload" >Subir</button>
                                             </div>
                                         </div>
                                     </div>
 
-                                  
+
                                 </div>
 
                             </div>
@@ -152,10 +155,7 @@ $message = "";
                     <?php
                     }
                     ?>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-                        <button type="submit" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
-                    </div>
+                
                     </form>
                 </div>
             </div>
@@ -171,4 +171,5 @@ $message = "";
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
