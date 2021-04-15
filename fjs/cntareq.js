@@ -8,7 +8,7 @@ $(document).ready(function () {
           targets: -1,
           data: null,
           defaultContent:
-            "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar' data-toggle='tooltip' data-placement='top' title='Ver'><i class='fas fa-search'></i></button><button class='btn btn-sm btn-danger btnBorrar' data-toggle='tooltip' data-placement='top' title='Borrar'><i class='fas fa-trash-alt'></i></button></div>",
+            "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar' data-toggle='tooltip' data-placement='top' title='Ver'><i class='fas fa-search'></i></button><button class='btn btn-sm btn-success  btnUpload' data-toggle='tooltip' data-placement='top' title='Subir Comprobante'><i class='fas fa-cloud-upload-alt'></i></button><button class='btn btn-sm btn-danger btnBorrar' data-toggle='tooltip' data-placement='top' title='Borrar'><i class='fas fa-trash-alt'></i></button></div>",
         },
       ],
   
@@ -74,6 +74,45 @@ $(document).ready(function () {
         })
       }
     })
+
+
+    $(document).on('click', '.btnUpload', function () {
+      fila = $(this).closest('tr')
+      id = parseInt(fila.find('td:eq(0)').text())
+
+
+
+      $("#folio").val(id);
+        $("#formDatos").trigger("reset");
+        $(".modal-header").css("background-color", "#28a745");
+        $(".modal-header").css("color", "white");
+        $(".modal-title").text("Subir Archivo");
+        $("#modalCRUD").modal("show");
+    })
+
+
+    $(document).on('click', '.upload', function (){
+    
+      var formData = new FormData();
+      var files = $('#archivo')[0].files[0];
+      
+      formData.append('file',files);
+      $.ajax({
+          url: 'bd/upload.php',
+          type: 'post',
+          data: formData,
+          contentType: false,
+          processData: false,
+          success: function(response) {
+              if (response != 0) {
+                  console.log(response)
+              } else {
+        alert('Formato de imagen incorrecto.');
+      }
+          }
+      });
+  return false;
+  });
  
   
   })
