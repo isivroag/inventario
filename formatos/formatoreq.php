@@ -49,7 +49,8 @@ function getPlantilla($folio, $pago)
     <header class="clearfix">
         
         <div id="logo">
-            <img src="../img/logocompleto.png" style="max-width:120px">
+        
+            <img src="img/logocompleto.png" style="max-width:120px">
         </div>
         <div id="company">
         <h2 class="name">FORMATO DE REQUISICIÓN DE MATERIALES</h2>

@@ -11,7 +11,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 $tokenid = md5($_SESSION['s_usuario']);
-$usuario=$_SESSION['s_nombre'];
+$usuario = $_SESSION['s_nombre'];
 
 
 if (isset($_GET['folio'])) {
@@ -47,9 +47,7 @@ if ($resultado->rowCount() >= 1) {
         $solicitante = $dt['solicitante'];
         $fraccionamiento = $dt['fraccionamiento'];
         $obs_req = $dt['obs_req'];
-       
     }
-   
 } else {
     $fecha = date('Y-m-d');
     $consultatmp = "INSERT INTO tmp_req (tokenid,estado_req,fecha_req,usuario) VALUES('$tokenid','1','$fecha','$usuario')";
@@ -65,7 +63,6 @@ if ($resultado->rowCount() >= 1) {
         $solicitante = "";
         $fraccionamiento = "";
         $obs_req = "";
-       
     }
 }
 
@@ -210,7 +207,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                                         </div>
                                     </div>
 
-                                
+
 
                                     <div class="col-lg-2">
                                         <div class="form-group input-group-sm">
@@ -276,7 +273,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                                             <div class="input-group input-group-sm">
 
                                                 <input type="hidden" class="form-control" name="claveconcepto" id="claveconcepto">
-                                               
+
 
                                                 <label for="concepto" class="col-form-label">Material:</label>
                                                 <div class="input-group input-group-sm">
@@ -331,8 +328,8 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                         <div class="content" style="padding:5px 0px;">
 
                             <div class="card card-widget" style="margin-bottom:0px;">
-                            <div class="card-header bg-gradient-green " style="margin:0px;padding:8px">
-                            <h1 class=" card-title punto bg-blue">3</h1>
+                                <div class="card-header bg-gradient-green " style="margin:0px;padding:8px">
+                                    <h1 class=" card-title punto bg-blue">3</h1>
                                     <h1 class="card-title "> Listado de Material</h1>
                                 </div>
                                 <div class="card-body" style="margin:0px;padding:3px;">
@@ -386,6 +383,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
 
                 <!-- /.card-footer-->
             </div>
+        </div>
 
 
 
@@ -418,7 +416,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                                         <th>Material</th>
                                         <th>U. Medida</th>
                                         <th>Seleccionar</th>
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -443,17 +441,22 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </section>
 
+    <section>
+
+
+    </section>
+
 
 </div>
 
 <script>
-  //window.addEventListener('beforeunload', function(event)  {
+    //window.addEventListener('beforeunload', function(event)  {
 
-  // event.preventDefault();
+    // event.preventDefault();
 
 
-  //event.returnValue ="";
-  //});
+    //event.returnValue ="";
+    //});
 </script>
 
 <?php include_once 'templates/footer.php'; ?>

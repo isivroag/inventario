@@ -25,6 +25,12 @@ $message = "";
 
 ?>
 
+
+<style>
+    .custom-file-input~.custom-file-label::after {
+        content: "Elegir";
+    }
+</style>
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 
@@ -93,6 +99,67 @@ $message = "";
         </div>
         <!-- /.card -->
 
+    </section>
+
+    <section>
+        <div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient-green">
+                        <h5 class="modal-title" id="exampleModalLabel">Subir Archivo</h5>
+
+                    </div>
+                    <div class="card card-widget" style="margin: 10px;">
+                        <form id="formDatos" action="" method="POST">
+                            <div class="modal-body row">
+
+
+                                <div class="col-sm-12">
+
+
+
+                                    <div class="form-group">
+                                        <label for="exampleInputFile">Subir Archivo</label>
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="archivo" id="archivo">
+
+                                                <label class="custom-file-label" for="archivo"></label>
+                                            </div>
+                                            <div class="input-group-append">
+                                            <input type="button" class="btn btn-primary upload" value="Subir">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                  
+                                </div>
+
+                            </div>
+                    </div>
+
+
+                    <?php
+                    if ($message != "") {
+                    ?>
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <span class="badge "><?php echo ($message); ?></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+
+                        </div>
+
+                    <?php
+                    }
+                    ?>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                        <button type="submit" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </section>
 
 </div>
