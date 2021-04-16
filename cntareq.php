@@ -114,23 +114,23 @@ $message = "";
                             <div class="modal-body row">
 
                                 <div class="col-sm-12">
-                                <input type="text" id="folioreq" name="folioreq">
+                                    <input type="text" id="folioreq" name="folioreq">
                                 </div>
                                 <div class="col-sm-12">
 
-                                 
+
 
                                     <div class="form-group">
                                         <label for="exampleInputFile">Subir Archivo</label>
                                         <div class="input-group">
                                             <div class="custom-file">
-                                               
+
                                                 <input type="file" class="custom-file-input" name="archivo" id="archivo">
 
                                                 <label class="custom-file-label" for="archivo">Elegir Archivo</label>
                                             </div>
                                             <div class="input-group-append">
-                                                <button  class="btn btn-primary" id="upload" >Subir</button>
+                                                <button class="btn btn-primary" id="upload">Subir</button>
                                             </div>
                                         </div>
                                     </div>
@@ -155,8 +155,39 @@ $message = "";
                     <?php
                     }
                     ?>
-                
+
                     </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="modal fade" id="modalIMG" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient-green">
+                        <h5 class="modal-title" id="exampleModalLabel">Autorización</h5>
+
+                    </div>
+                    <div class="card card-widget" style="margin: 10px;">
+                        <div class="modal-body ">
+
+                            <div class="row justify-content-center">
+                                <div class="col-sm-12 text-center">
+
+                                    <img class="img-responsive img-fluid pad" id="mapa"  src="" alt="Photo" style="max-width: 600;">
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
                 </div>
             </div>
         </div>

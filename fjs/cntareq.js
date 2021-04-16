@@ -1,7 +1,7 @@
 $(document).ready(function () {
   var id, opcion, proyecto
   opcion = 4
-  const MAXIMO_TAMANIO_BYTES = 2000000;
+  const MAXIMO_TAMANIO_BYTES = 12000000;
 
   tablaVis = $('#tablaV').DataTable({
     columnDefs: [
@@ -9,7 +9,13 @@ $(document).ready(function () {
         targets: -1,
         data: null,
         defaultContent:
-          "<div class='text-center'><button class='btn btn-sm btn-primary  btnEditar' data-toggle='tooltip' data-placement='top' title='Ver'><i class='fas fa-search'></i></button><button class='btn btn-sm btn-success  btnUpload' data-toggle='tooltip' data-placement='top' title='Subir Comprobante'><i class='fas fa-cloud-upload-alt'></i></button><button class='btn btn-sm btn-danger btnBorrar' data-toggle='tooltip' data-placement='top' title='Borrar'><i class='fas fa-trash-alt'></i></button></div>",
+        
+       
+          "<div class='text-center'>\
+          <button class='btn btn-sm btn-primary  btnEditar' data-toggle='tooltip' data-placement='top' title='Ver'><i class='fas fa-search'></i></button>\
+          <button class='btn btn-sm bg-gradient-orange  btnVer' data-toggle='tooltip' data-placement='top' title='Ver Autorización'><i class='fab fa-searchengin'></i></button>\
+          <button class='btn btn-sm btn-success  btnUpload' data-toggle='tooltip' data-placement='top' title='Subir Comprobante'><i class='fas fa-cloud-upload-alt'></i></button>\
+          <button class='btn btn-sm btn-danger btnBorrar' data-toggle='tooltip' data-placement='top' title='Borrar'><i class='fas fa-trash-alt'></i></button></div>",
       },
     ],
 
@@ -50,6 +56,8 @@ $(document).ready(function () {
     window.location.href = 'req.php?folio=' + id
   })
 
+  
+
   //botón BORRAR
   $(document).on('click', '.btnBorrar', function () {
     fila = $(this)
@@ -76,6 +84,38 @@ $(document).ready(function () {
     }
   })
 
+
+  $(document).on('click', '.btnVer', function () {
+    fila = $(this).closest('tr')
+    id = parseInt(fila.find('td:eq(0)').text())
+
+    $.ajax({
+      type: "POST",
+      url: "bd/buscarimg.php",
+      dataType: "json",
+      data: { id: id },
+
+      success: function(res) {
+         if (res!=""){
+          archivo=res;
+          document.getElementById("mapa").src = archivo;
+          $("#modalIMG").modal("show");
+         }else{
+          Swal.fire({
+            title: 'No existe elemento',
+            text: "La requisición no tiene documento asignado",
+            icon: 'warning',
+        })
+         }
+         
+      },
+  });
+
+
+    
+ 
+    
+  })
 
   $(document).on('click', '.btnUpload', function () {
     fila = $(this).closest('tr')
@@ -107,7 +147,13 @@ $(document).ready(function () {
     console.log(files.size);
     if (files.size > MAXIMO_TAMANIO_BYTES) {
       const tamanioEnMb = MAXIMO_TAMANIO_BYTES / 1000000;
-      alert(`El tamaño máximo es ${tamanioEnMb} MB`);
+     
+
+      Swal.fire({
+        title: 'El tamaño del archivo es muy grande',
+        text: "El archivo no puede exceder los "+ tamanioEnMb+"MB",
+        icon: 'warning',
+    })
       // Limpiar
       $("#archivo").val();
     }
@@ -122,11 +168,20 @@ $(document).ready(function () {
         processData: false,
         success: function (response) {
           if (response != 0) {
-            console.log(response)
+            Swal.fire({
+              title: 'Imagen Guardada',
+              text: "Se anexo el documento a la Requisición",
+              icon: 'success',
+          })
+          $("#modalCRUD").modal("hide");
             //respuesta exitosa
           } else {
             //swal incorrecto
-            alert('Formato de imagen incorrecto.');
+            Swal.fire({
+              title: 'Formato de Imagen Incorrecto',
+              text: "El archivo no es una imagen ",
+              icon: 'warning',
+          })
 
           }
         }
