@@ -414,6 +414,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                                     <tr>
                                         <th>Id</th>
                                         <th>Material</th>
+                                        <th>Existencias</th>
                                         <th>U. Medida</th>
                                         <th>Seleccionar</th>
 
@@ -426,6 +427,7 @@ $datadet = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                                         <tr>
                                             <td><?php echo $datc['id_prod'] ?></td>
                                             <td><?php echo $datc['nom_prod'] ?></td>
+                                            <td><?php echo $datc['cant_prod'] ?></td>
                                             <td><?php echo $datc['umedida'] ?></td>
                                             <td></td>
                                         </tr>

@@ -1,12 +1,12 @@
-$(document).ready(function() {
+$(document).ready(function () {
     jQuery.ajaxSetup({
-        beforeSend: function() {
+        beforeSend: function () {
             $("#div_carga").show();
         },
-        complete: function() {
+        complete: function () {
             $("#div_carga").hide();
         },
-        success: function() {},
+        success: function () { },
     });
 
     var id, opcion;
@@ -18,16 +18,16 @@ $(document).ready(function() {
         searching: false,
 
         columnDefs: [{
-                targets: -1,
-                data: null,
-                defaultContent: "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>",
-            },
-            { className: "text-center", targets: [0] },
-            { className: "hide_column", targets: [1] },
-            { className: "text-center", targets: [2] },
-            { className: "text-right", targets: [3] },
-            
-            
+            targets: -1,
+            data: null,
+            defaultContent: "<div class='text-center'><button class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button></div>",
+        },
+        { className: "text-center", targets: [0] },
+        { className: "hide_column", targets: [1] },
+        { className: "text-center", targets: [2] },
+        { className: "text-right", targets: [3] },
+
+
         ],
 
         language: {
@@ -49,11 +49,11 @@ $(document).ready(function() {
 
     tablaC = $("#tablaCon").DataTable({
         columnDefs: [{
-                targets: -1,
-                data: null,
-                defaultContent: "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelConcepto'><i class='fas fa-hand-pointer'></i></button></div></div>",
-            },
-            
+            targets: -1,
+            data: null,
+            defaultContent: "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelConcepto'><i class='fas fa-hand-pointer'></i></button></div></div>",
+        },
+
         ],
 
         //Para cambiar el lenguaje a español
@@ -77,48 +77,48 @@ $(document).ready(function() {
 
 
 
-    $(document).on("click", "#bconcepto", function() {
+    $(document).on("click", "#bconcepto", function () {
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white");
 
         $("#modalConcepto").modal("show");
-/*
-        $("#claveconcepto").val("");
-        $("#concepto").val("");
-        $("#id_umedida").val("");
-        $("#usomat").val("");
-        $("#nom_umedida").val("");
-        $("#bmaterial").prop("disabled", true);
-        $("#clavemat").val("");
-        $("#material").val("");
-        $("#clave").val("");
-        $("#idprecio").val("");
-        $("#unidad").val("");
-
-        $("#precio").val("");
-        $("#cantidad").val("");
-        $("#cantidad").prop("disabled", true);*/
+        /*
+                $("#claveconcepto").val("");
+                $("#concepto").val("");
+                $("#id_umedida").val("");
+                $("#usomat").val("");
+                $("#nom_umedida").val("");
+                $("#bmaterial").prop("disabled", true);
+                $("#clavemat").val("");
+                $("#material").val("");
+                $("#clave").val("");
+                $("#idprecio").val("");
+                $("#unidad").val("");
+        
+                $("#precio").val("");
+                $("#cantidad").val("");
+                $("#cantidad").prop("disabled", true);*/
     });
 
- 
-    $(document).on("click", "#btnGuardar", function() {
-      
+
+    $(document).on("click", "#btnGuardar", function () {
+
         solicitante = $("#solicitante").val();
         fecha = $("#fecha").val();
         tokenid = $("#tokenid").val();
         folio = $("#folio").val();
         fraccionamiento = $("#fraccionamiento").val();
         obs = $("#obs").val();
-        requisicion=$("#requisicion").val();
+        requisicion = $("#requisicion").val();
         console.log(requisicion);
-      
-    
+
+
 
 
         if (
             solicitante.length != 0 &&
             fraccionamiento.length != 0 &&
-            tablaVis.data().any() 
+            tablaVis.data().any()
 
         ) {
             $.ajax({
@@ -134,7 +134,7 @@ $(document).ready(function() {
                     fraccionamiento: fraccionamiento,
                     obs: obs,
                 },
-                success: function(res) {
+                success: function (res) {
                     if (res == 0) {
                         Swal.fire({
                             title: "Error al Guardar",
@@ -150,7 +150,7 @@ $(document).ready(function() {
                                 dataType: "json",
                                 //async: false,
                                 data: { folio: folio },
-                                success: function(res) {
+                                success: function (res) {
                                     if (res == 0) {
                                         Swal.fire({
                                             title: "Error al Guardar",
@@ -164,7 +164,7 @@ $(document).ready(function() {
                                             icon: "success",
                                         });
                                         folio = res;
-                                        window.setTimeout(function() {
+                                        window.setTimeout(function () {
                                             window.location.href = "req.php?folio=" + folio;
                                         }, 1000);
                                     }
@@ -180,7 +180,7 @@ $(document).ready(function() {
                                 dataType: "json",
                                 //async: false,
                                 data: { folio: folio, requisicion: requisicion },
-                                success: function(res) {
+                                success: function (res) {
                                     if (res == 0) {
                                         Swal.fire({
                                             title: "Error al Guardar",
@@ -194,7 +194,7 @@ $(document).ready(function() {
                                             icon: "success",
                                         });
                                         folio = res;
-                                        window.setTimeout(function() {
+                                        window.setTimeout(function () {
                                             window.location.href = "req.php?folio=" + folio;
                                         }, 1000);
                                     }
@@ -213,13 +213,13 @@ $(document).ready(function() {
         }
     });
 
-    $(document).on("click", "#btnGuardarHead", function() {
+    $(document).on("click", "#btnGuardarHead", function () {
         guardarhead();
 
-        
+
     });
 
-    $(document).on("click", ".btnBorrar", function(event) {
+    $(document).on("click", ".btnBorrar", function (event) {
         event.preventDefault();
         fila = $(this);
         id = parseInt($(this).closest("tr").find("td:eq(0)").text());
@@ -238,7 +238,7 @@ $(document).ready(function() {
 
                 cancelButtonText: "Cancelar",
             })
-            .then(function(isConfirm) {
+            .then(function (isConfirm) {
                 if (isConfirm.value) {
                     $.ajax({
                         url: "bd/detalletemp.php",
@@ -246,25 +246,25 @@ $(document).ready(function() {
                         dataType: "json",
                         async: false,
                         data: { id: id, folio: folio, opcion: opcion },
-                        success: function(data) {
+                        success: function (data) {
                             if (data == 1) {
                                 tablaVis.row(fila.parents("tr")).remove().draw();
                             }
                         },
                     });
-                } else if (isConfirm.dismiss === swal.DismissReason.cancel) {}
+                } else if (isConfirm.dismiss === swal.DismissReason.cancel) { }
             });
     });
 
-    $(document).on("click", ".btnSelConcepto", function() {
+    $(document).on("click", ".btnSelConcepto", function () {
         fila = $(this).closest("tr");
 
         idConcepto = fila.find("td:eq(0)").text();
         NomConcepto = fila.find("td:eq(1)").text();
         id_umedida = fila.find("td:eq(2)").text();
-       
 
-        
+
+
         $("#claveconcepto").val(idConcepto);
         $("#concepto").val(NomConcepto);
         $("#nom_umedida").val(id_umedida);
@@ -272,14 +272,14 @@ $(document).ready(function() {
         $("#modalConcepto").modal("hide");
     });
 
-   
-    $(document).on("click", "#btlimpiar", function() {
-       
-      limpiar();
-  
+
+    $(document).on("click", "#btlimpiar", function () {
+
+        limpiar();
+
     });
 
-    $(document).on("click", "#btnagregar", function() {
+    $(document).on("click", "#btnagregar", function () {
         folio = $("#folio").val();
         idprod = $("#claveconcepto").val();
         nomprod = $("#concepto").val();
@@ -293,41 +293,88 @@ $(document).ready(function() {
             idprod.length != 0 &&
             cantidad.length != 0
         ) {
+            // inicia buscar existencia
             $.ajax({
                 type: "POST",
-                url: "bd/detalletemp.php",
+                url: "bd/buscarexistencias.php",
                 dataType: "json",
                 //async: false,
                 data: {
-                    folio: folio,
+
                     idprod: idprod,
-                    nomprod: nomprod,
-                    umedida: umedida,
-                    cantidad: cantidad,
-                    opcion: opcion,
+
                 },
-                success: function(data) {
-                    id_reg = data[0].id_reg;
-                    idprod= data[0].id_prod;
-                    nom_prod = data[0].nom_prod;
-                    umedida = data[0].umedida;
-                    cantidad = data[0].cantidad;
-                    
+                success: function (data) {
+                    console.log(data);
+                    if (data > 0) {
+                        if (parseFloat(data) >= parseFloat(cantidad)) {
+                            console.log(data);
+                            console.log(cantidad);
+                            //inicia insertar mov en requisicion
+                            $.ajax({
+                                type: "POST",
+                                url: "bd/detalletemp.php",
+                                dataType: "json",
+                                //async: false,
+                                data: {
+                                    folio: folio,
+                                    idprod: idprod,
+                                    nomprod: nomprod,
+                                    umedida: umedida,
+                                    cantidad: cantidad,
+                                    opcion: opcion,
+                                },
+                                success: function (data) {
+                                    id_reg = data[0].id_reg;
+                                    idprod = data[0].id_prod;
+                                    nom_prod = data[0].nom_prod;
+                                    umedida = data[0].umedida;
+                                    cantidad = data[0].cantidad;
 
-                    tablaVis.row
-                        .add([
-                            id_reg,
-                            idprod,
-                            nom_prod,
-                            cantidad,
-                            umedida,
-                        ])
-                        .draw();
-                        limpiar();
 
-                
+                                    tablaVis.row
+                                        .add([
+                                            id_reg,
+                                            idprod,
+                                            nom_prod,
+                                            cantidad,
+                                            umedida,
+                                        ])
+                                        .draw();
+                                    limpiar();
+
+
+                                },
+                            });
+                            //termina insertar mov en requisicion
+                        }
+                        else {
+                            Swal.fire({
+                                title: "Sin Inventario",
+                                text: "No existe inventario Suficiente del Material",
+                                icon: "warning",
+                            });
+                            return false;
+                        }
+
+                    }
+                    else {
+                        Swal.fire({
+                            title: "Sin Inventario",
+                            text: "No existe inventario del Material",
+                            icon: "warning",
+                        });
+                        return false;
+                    }
+
+
                 },
             });
+
+            //termina buscar existencia
+
+
+
         } else {
             Swal.fire({
                 title: "Datos Faltantes",
@@ -339,7 +386,7 @@ $(document).ready(function() {
     });
 
     function guardarhead() {
-       
+
         fecha = $("#fecha").val();
         tokenid = $("#tokenid").val();
         folio = $("#folio").val();
@@ -347,7 +394,7 @@ $(document).ready(function() {
         solicitante = $("#solicitante").val();
         fraccionamiento = $("#fraccionamiento").val();
         obs = $("#obs").val();
-        
+
 
 
         $.ajax({
@@ -361,18 +408,18 @@ $(document).ready(function() {
                 solicitante: solicitante,
                 fraccionamiento: fraccionamiento,
                 obs: obs,
-               
+
             },
-            success: function(res) {
+            success: function (res) {
                 if (res == 0) {
                     Swal.fire({
                         title: "Error al Guardar",
                         text: "No se puedo guardar el encabezado de la Requisición",
                         icon: "error",
                     }
-                    
+
                     );
-                }else{
+                } else {
                     mensaje();
                 }
             },
@@ -380,19 +427,19 @@ $(document).ready(function() {
     }
 
 
-    function limpiar(){
+    function limpiar() {
         $("#concepto").val("");
         $("#nom_umedida").val("");
         $("#bmaterial").prop("disabled", true);
         $("#unidad").val("");
- 
+
         $("#cantidad").val("");
 
         $("#cantidad").prop("disabled", true);
     }
-    
 
-    
+
+
 
     function mensaje() {
         swal.fire({
