@@ -1,5 +1,5 @@
 <?php
-$pagina = "rptpresupuesto";
+$pagina = "inventariodet";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -13,7 +13,17 @@ $objeto = new conn();
 $conexion = $objeto->connect();
 $mesactual = (isset($_GET['mes'])) ? $_GET['mes'] : date("m");
 $yearactual = (isset($_GET['ejercicio'])) ? $_GET['ejercicio'] : date("Y");
-$inicio = $yearactual . "-" . $mesactual . "-01";
+
+
+
+$day = date("d", mktime(0,0,0, $mesactual+1, 0, $yearactual));
+$fechafin= date('Y-m-d', mktime(0,0,0, $mesactual, $day, $yearactual));
+
+$fechaini=date('Y-m-d', mktime(0,0,0, $mesactual, 1, $yearactual));
+
+
+
+$fechaini = $yearactual . "-" . $mesactual . "-01";
 $fin = $yearactual . "-" . $mesactual . "-30";
 
 $consulta = "SELECT * FROM vproducto where estado_prod=1 order by id_prod";
@@ -84,6 +94,8 @@ $message = "";
                                     <div class="form-group input-group-sm">
                                         <label for="ejercicio" class="col-form-label">EJERCICIO:</label>
                                         <input type="text" class="form-control" name="ejercicio" id="ejercicio" value="<?php echo $yearactual ?>">
+                                        <input type="hidden" class="form-control" name="fechaini" id="fechaini" value="<?php echo $fechaini ?>">
+                                        <input type="hidden" class="form-control" name="fechafin" id="fechafin" value="<?php echo $fechafin ?>">
                                     </div>
                                 </div>
 
@@ -145,7 +157,7 @@ $message = "";
                                             $consultaini = "SELECT mov_prod.id_prod,mov_prod.fecha_movp,mov_prod.saldofin FROM 
                                             mov_prod
                                             JOIN 
-                                            (SELECT id_movp,id_prod,MAX(fecha_movp) as maxfecha_movp FROM mov_prod where fecha_movp<= '$inicio' GROUP BY id_prod ) AS cons
+                                            (SELECT id_movp,id_prod,MAX(fecha_movp) as maxfecha_movp FROM mov_prod where fecha_movp<= '$fechaini' GROUP BY id_prod ) AS cons
                                             ON mov_prod.id_prod = cons.id_prod AND mov_prod.fecha_movp= cons.maxfecha_movp WHERE mov_prod.id_prod='$producto'";
 
 
@@ -162,7 +174,7 @@ $message = "";
                                             }
 
                                             //buscar entradas
-                                            $consultaent="SELECT sum(cantidad) as cantidad from mov_prod where fecha_movp BETWEEN '$inicio' AND '$fin' AND id_prod='$producto' and tipo_movp<>'Salida'GROUP BY id_prod";
+                                            $consultaent="SELECT sum(cantidad) as cantidad from mov_prod where fecha_movp BETWEEN '$fechaini' AND '$fin' AND id_prod='$producto' and tipo_movp<>'Salida'GROUP BY id_prod";
                                             $resultadoent = $conexion->prepare($consultaent);
                                             $resultadoent->execute();
                                             $dataent = $resultadoent->fetchAll(PDO::FETCH_ASSOC);
@@ -173,7 +185,7 @@ $message = "";
 
                                             //buscar salidas
 
-                                            $consultasal="SELECT sum(cantidad) as cantidad from mov_prod where fecha_movp BETWEEN '$inicio' AND '$fin' AND id_prod='$producto' and tipo_movp='Salida'GROUP BY id_prod";
+                                            $consultasal="SELECT sum(cantidad) as cantidad from mov_prod where fecha_movp BETWEEN '$fechaini' AND '$fechafin' AND id_prod='$producto' and tipo_movp='Salida'GROUP BY id_prod";
                                             $resultadosal = $conexion->prepare($consultasal);
                                             $resultadosal->execute();
                                             $datasal = $resultadosal->fetchAll(PDO::FETCH_ASSOC);
@@ -186,7 +198,7 @@ $message = "";
                                             $consultafin = "SELECT mov_prod.id_prod,mov_prod.fecha_movp,mov_prod.saldofin FROM 
                                             mov_prod
                                             JOIN 
-                                            (SELECT id_movp,id_prod,MAX(fecha_movp) as maxfecha_movp FROM mov_prod where fecha_movp<= '$fin' GROUP BY id_prod ) AS cons
+                                            (SELECT id_movp,id_prod,MAX(fecha_movp) as maxfecha_movp FROM mov_prod where fecha_movp<= '$fechafin' GROUP BY id_prod ) AS cons
                                             ON mov_prod.id_prod = cons.id_prod AND mov_prod.fecha_movp= cons.maxfecha_movp WHERE mov_prod.id_prod='$producto'";
 
 
@@ -237,7 +249,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/"></script>
+<script src="fjs/inventariodet.js"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

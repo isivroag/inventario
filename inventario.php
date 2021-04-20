@@ -1,5 +1,5 @@
 <?php
-$pagina = "rptpresupuesto";
+$pagina = "inventariores";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";

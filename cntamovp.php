@@ -26,7 +26,7 @@ if (isset($_GET['id'])) {
 
 
 
-$consulta = "SELECT * FROM producto where id_prod='$id'";
+ $consulta = "SELECT * FROM producto where id_prod='$id'";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -37,8 +37,15 @@ foreach($data as $dr){
 
 }
 
+if (isset($_GET['fechaini']) && isset($_GET['fechafin'])){
+    $fechaini=$_GET['fechaini'];
+    $fechafin=$_GET['fechafin'];
+    $consulta = "SELECT * FROM mov_prod where estado_movp=1 AND id_prod='$id' and fecha_movp between '$fechaini' and '$fechafin' order by fecha_movp desc,id_movp desc";
+}
+else{
+    $consulta = "SELECT * FROM mov_prod where estado_movp=1 AND id_prod='$id' order by fecha_movp desc,id_movp desc";
+}
 
-$consulta = "SELECT * FROM mov_prod where estado_movp=1 AND id_prod='$id' order by fecha_movp desc,id_movp desc";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

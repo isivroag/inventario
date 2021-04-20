@@ -26,6 +26,16 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+
+
+        <li class="nav-item ">
+          <a href="inicio.php" class="nav-link <?php echo ($pagina == 'home') ? "active" : ""; ?> ">
+            <i class="nav-icon fas fa-home "></i>
+            <p>
+              Home
+            </p>
+          </a>
+        </li>
         <li class="nav-item  has-treeview <?php echo ($pagina == 'producto' ||  $pagina == 'umedida' ||  $pagina == 'cntareq' ||  $pagina == 'tipop') ? "menu-open" : ""; ?>">
 
 
@@ -48,7 +58,7 @@
 
             <li class="nav-item">
               <a href="cntatipop.php" class="nav-link <?php echo ($pagina == 'tipop') ? "active seleccionado" : ""; ?>  ">
-              <i class="fas fa-layer-group nav-icon"></i>
+                <i class="fas fa-layer-group nav-icon"></i>
                 <p>Tipo de Materiales</p>
               </a>
             </li>
@@ -66,43 +76,50 @@
                 <p>Requisiciones</p>
               </a>
             </li>
-           
+
 
 
           </ul>
 
         </li>
 
-        
 
 
-       
-          <li class="nav-item has-treeview <?php echo ($pagina == 'resumencxp') ? "menu-open" : ""; ?>">
 
 
-            <a href="#" class="nav-link <?php echo ($pagina == 'resumencxp') ? "active" : ""; ?>">
-              <span class="fa-stack">
-                <i class="fas fa-chart-line nav-icon"></i>
-
-              </span>
-              <p>
-                Reportes
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-
-              <li class="nav-item">
-                <a href="inventario.php" class="nav-link <?php echo ($pagina == 'resumencxp') ? "active seleccionado" : ""; ?>  ">
-                  <i class="fas fa-file-invoice nav-icon"></i>
-                  <p>Inventario</p>
-                </a>
-              </li>
+        <li class="nav-item has-treeview <?php echo ($pagina == 'inventariodet' || $pagina == 'inventariores' ) ? "menu-open" : ""; ?>">
 
 
-            </ul>
-          </li>
-     
+          <a href="#" class="nav-link <?php echo ($pagina == 'inventariodet' || $pagina == 'inventariores') ? "active" : ""; ?>">
+            <span class="fa-stack">
+              <i class="fas fa-chart-line nav-icon"></i>
+
+            </span>
+            <p>
+              Reportes
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+
+          <li class="nav-item">
+              <a href="inventario.php" class="nav-link <?php echo ($pagina == 'inventariores') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-file-invoice nav-icon"></i>
+                <p>Inventario Resumen</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="inventariodet.php<?php echo '?mes=' . date("m") . '&ejercicio=' . date("Y") ?>" class="nav-link <?php echo ($pagina == 'inventariodet') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-file-invoice nav-icon"></i>
+                <p>Inventario Detallado</p>
+              </a>
+            </li>
+
+
+          </ul>
+        </li>
+
 
 
 
