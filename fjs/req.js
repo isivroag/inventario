@@ -53,10 +53,63 @@ $(document).ready(function() {
         window.location.href = "requisicion.php";
     });
 
+    $("#btnEntregar").click(function() {
+        entregado=$('#entregado').val();
+        
+        if (entregado==0){
+        folio = $('#folio').val();
+        $.ajax({
+            type: 'POST',
+            url: 'bd/entregar.php',
+            dataType: 'json',
+            data: { folio: folio },
+            success: function (data) {
+                console.log(data);
+              if(data==1){
+                $('#entregado').val(data);
+                Swal.fire({
+                    title: "Inventario Actualizado",
+                    text: "La requisicion fue bloqueada",
+                    icon: "success",
+                });
+              }
+              else{
+                Swal.fire({
+                    title: "Inventario no actualizado",
+                    text: "No fue posible completar la operación",
+                    icon: "warning",
+                });
+              }
+              }
+            
+          })
+
+        }
+        else{
+            Swal.fire({
+                title: "Material Descontado",
+                text: "No es posible descontar el material",
+                icon: "warning",
+            });
+        }
+    });
+
 
     $("#btnGuardar").click(function() {
-        folio_req = $("#folio_tmp").val();
-        window.location.href = "requisicion.php?folio=" + folio_req;
+        entregado=$('#entregado').val();
+        if (entregado==0){
+            folio_req = $("#folio_tmp").val();
+            window.location.href = "requisicion.php?folio=" + folio_req;
+        }
+        else{
+            Swal.fire({
+                title: "Material Descontado",
+                text: "No es posible editar la Requisición",
+                icon: "warning",
+            });
+        }
+
+        
     });
     
     function round(value, decimals) {
@@ -64,6 +117,7 @@ $(document).ready(function() {
     }
 
     $(document).on("click", "#btnVer", function() {
+        
 
         folio = $('#folio').val();
         var ancho = 1000;
@@ -72,7 +126,6 @@ $(document).ready(function() {
         var y = parseInt((window.screen.height / 2) - (alto / 2));
 
         url = "formatos/pdfreq.php?folio=" + folio;
-
         window.open(url, "Requisición", "left=" + x + ",top=" + y + ",height=" + alto + ",width=" + ancho + "scrollbar=si,location=no,resizable=si,menubar=no");
 
     });

@@ -28,6 +28,7 @@ if ($folio != "") {
         $solicitante = $dt['solicitante'];
         $fraccionamiento = $dt['fraccionamiento'];
         $obs_req = $dt['obs_req'];
+        $entregado=$dt['entregado'];
     }
     $consultadet = "SELECT * FROM detalle_req WHERE folio_req='$folio' ORDER BY id_reg";
     $resultadodet = $conexion->prepare($consultadet);
@@ -130,6 +131,7 @@ if ($folio != "") {
                         <button id="btnNuevo" name="btnNuevo" type="button" class="btn bg-gradient-orange btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
                         <button id="btnGuardar" name="btnGuardar" type="button" class="btn bg-success" value="btnGuardar"><i class="far fa-edit"></i> Editar</button>
                         <button id="btnVer" name="btnVer" type="button" class="btn bg-gradient-info btn-ms"><i class="fas fa-file-pdf"></i> Preview</button>
+                        <button id="btnEntregar" name="btnEntregar" type="button" class="btn bg-gradient-purple btn-ms"><i class="fas fa-truck-pickup"></i> Entregar</button>
                         <!--<button id="btnNuevo" type="button" class="btn bg-gradient-primary btn-ms" data-toggle="modal"><i class="fas fa-envelope-square"></i> Enviar</button>-->
                     </div>
                 </div>
@@ -178,6 +180,7 @@ if ($folio != "") {
                                         <div class="form-group input-group-sm">
                                             <label for="folior" class="col-form-label">Folio:</label>
                                             <input type="hidden" class="form-control" name="folio" id="folio" value="<?php echo $folio; ?>">
+                                            <input type="text" class="form-control" name="entregado" id="entregado" value="<?php echo $entregado; ?>">
                                             <input type="text" class="form-control" name="folior" id="folior" value="<?php echo $folio; ?>">
                                         </div>
                                     </div>
