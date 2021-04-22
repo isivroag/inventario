@@ -68,6 +68,7 @@ $message = "";
                                             <th>Fecha</th>
                                             <th>Fraccionamiento</th>
                                             <th>Solicitante</th>
+                                            <th>Entregadp</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -80,6 +81,7 @@ $message = "";
                                                 <td><?php echo $dat['fecha_req'] ?></td>
                                                 <td><?php echo $dat['fraccionamiento'] ?></td>
                                                 <td><?php echo $dat['solicitante'] ?></td>
+                                                <td><?php echo $dat['entregado'] ?></td>
                                                 <td></td>
                                             </tr>
                                         <?php

@@ -17,6 +17,7 @@ $(document).ready(function () {
           <button class='btn btn-sm btn-success  btnUpload' data-toggle='tooltip' data-placement='top' title='Subir Comprobante'><i class='fas fa-cloud-upload-alt'></i></button>\
           <button class='btn btn-sm btn-danger btnBorrar' data-toggle='tooltip' data-placement='top' title='Borrar'><i class='fas fa-trash-alt'></i></button></div>",
       },
+      { className: "hide_column", targets: [4] }
     ],
 
     //Para cambiar el lenguaje a español
@@ -62,26 +63,87 @@ $(document).ready(function () {
   $(document).on('click', '.btnBorrar', function () {
     fila = $(this)
 
+
     id = parseInt($(this).closest('tr').find('td:eq(0)').text())
-    opcion = 3 //borrar
+    entregado= parseInt($(this).closest('tr').find('td:eq(4)').text())
+
+
+     //borrar
 
     //agregar codigo de sweatalert2
-    var respuesta = confirm('¿Está seguro de eliminar el registro: ' + id + '?')
 
-    console.log(id)
-    console.log(opcion)
-    if (respuesta) {
-      $.ajax({
-        url: 'bd/crudproducto.php',
-        type: 'POST',
-        dataType: 'json',
-        data: { id: id, opcion: opcion },
+    if (entregado==1){
+      swal.fire({
+        title: "Requisición Entregada",
+        text: "Los Materiales serán regresados al almacen<br>¿Realmente desea borrar este elemento?",
 
-        success: function (data) {
-          tablaVis.row(fila.parents('tr')).remove().draw()
-        },
-      })
+        showCancelButton: true,
+        icon: "warning",
+        focusConfirm: true,
+        confirmButtonText: "Aceptar",
+
+        cancelButtonText: "Cancelar",
+    })
+    .then(function (isConfirm) {
+        if (isConfirm.value) {
+          opcion = 3
+            $.ajax({
+              url: 'bd/eliminarreq.php',
+              type: 'POST',
+              dataType: 'json',
+              data: { id: id, opcion: opcion },
+      
+              success: function (data) {
+                if (data==1){
+                  tablaVis.row(fila.parents('tr')).remove().draw()
+                }
+              },
+            })
+          
+        } else if (isConfirm.dismiss === swal.DismissReason.cancel) { }
+    });
     }
+    else{
+      swal.fire({
+        title: "Eliminiar Requsición",
+        text: "¿Realmente desea borrar este elemento?",
+
+        showCancelButton: true,
+        icon: "warning",
+        focusConfirm: true,
+        confirmButtonText: "Aceptar",
+
+        cancelButtonText: "Cancelar",
+    })
+    .then(function (isConfirm) {
+        if (isConfirm.value) {
+          opcion = 4
+            $.ajax({
+              url: 'bd/eliminarreq.php',
+              type: 'POST',
+              dataType: 'json',
+              data: { id: id, opcion: opcion },
+      
+              success: function (data) {
+                if (data==1){
+                  tablaVis.row(fila.parents('tr')).remove().draw()
+                }
+                
+              },
+            })
+          
+        } else if (isConfirm.dismiss === swal.DismissReason.cancel) { }
+    });
+
+
+
+    }
+
+
+ 
+
+
+    
   })
 
 
