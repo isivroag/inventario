@@ -74,11 +74,11 @@ $(document).ready(function () {
 
     if (entregado==1){
       swal.fire({
-        title: "Requisición Entregada",
-        text: "Los Materiales serán regresados al almacen<br>¿Realmente desea borrar este elemento?",
+        title: "La Requisición ya ha sido Entregada",
+        html: "Los Materiales serán <b>regresados al almacen</b><br><h4 style='color:blue'>¿Realmente desea borrar esta Requisición?</h4>",
 
         showCancelButton: true,
-        icon: "warning",
+        icon: "question",
         focusConfirm: true,
         confirmButtonText: "Aceptar",
 

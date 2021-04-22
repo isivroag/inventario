@@ -30,6 +30,13 @@ $message = "";
     .custom-file-input~.custom-file-label::after {
         content: "Elegir";
     }
+
+
+.swal2-icon.swal2-question {
+  border-color: red !important;
+  color: red !important;
+}
+
 </style>
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">

@@ -31,6 +31,8 @@ $datat = $resultadot->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
+
+
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 
@@ -67,7 +69,7 @@ $datat = $resultadot->fetchAll(PDO::FETCH_ASSOC);
                                             <th>Id</th>
                                             <th>Clave</th>
                                             <th>Descripción</th>
-                                            <th>Precio</th>
+                                            <!--<th>Precio</th>-->
                                             <th>Existencias</th>
                                             <th>U. Medida</th>
                                             <th>Id Tipo</th>
@@ -83,7 +85,7 @@ $datat = $resultadot->fetchAll(PDO::FETCH_ASSOC);
                                                 <td><?php echo $dat['id_prod'] ?></td>
                                                 <td><?php echo $dat['clave_prod'] ?></td>
                                                 <td><?php echo $dat['nom_prod'] ?></td>
-                                                <td><?php echo $dat['precio_prod'] ?></td>
+                                                <!--<td><?php echo $dat['precio_prod'] ?></td>-->
                                                 <td><?php echo $dat['cant_prod'] ?></td>
                                                 <td><?php echo $dat['umedida'] ?></td>
                                                 <td><?php echo $dat['id_tipop'] ?></td>
@@ -171,8 +173,8 @@ $datat = $resultadot->fetchAll(PDO::FETCH_ASSOC);
                                         </select>
                                     </div>
                                 </div>
-
-                                <div class="col-lg-6 ">
+                                <!--
+                                <div class="col-sm-6 ">
                                     <label for="precio" class="col-form-label ">Precio de Venta:</label>
                                     <div class="input-group input-group-sm">
                                         <div class="input-group-prepend">
@@ -183,7 +185,7 @@ $datat = $resultadot->fetchAll(PDO::FETCH_ASSOC);
                                         <input type="text" class="form-control text-right" name="precio" id="precio" value="" placeholder="Precio de Venta">
                                     </div>
                                 </div>
-
+                                -->
                             </div>
                     </div>
 

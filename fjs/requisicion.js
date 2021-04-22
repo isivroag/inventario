@@ -259,7 +259,7 @@ $(document).ready(function () {
 
         idConcepto = fila.find("td:eq(0)").text();
         NomConcepto = fila.find("td:eq(1)").text();
-        id_umedida = fila.find("td:eq(2)").text();
+        id_umedida = fila.find("td:eq(3)").text();
 
 
 

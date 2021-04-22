@@ -57,7 +57,7 @@ $(document).ready(function () {
     clave = fila.find('td:eq(1)').text()
     nombre = fila.find('td:eq(2)').text()
 
-    precio = fila.find('td:eq(3)').text()
+    precio =0
 
     cant_prod = fila.find('td:eq(4)').text()
     umedida = fila.find('td:eq(5)').text()
@@ -113,7 +113,7 @@ $(document).ready(function () {
     var nombre = $.trim($('#nombre').val())
     var clave = $.trim($('#clave').val())
     var umedida = $.trim($('#umedida').val())
-    var precio = $.trim($('#precio').val())
+    var precio = 0
     var tipop = $.trim($('#tipop').val())
 
     if (nombre.length == 0) {
@@ -128,7 +128,7 @@ $(document).ready(function () {
         url: 'bd/crudproducto.php',
         type: 'POST',
         dataType: 'json',
-        data: { nombre: nombre, clave: clave, umedida: umedida, precio: precio, id: id,tipop: tipop, opcion: opcion },
+        data: { nombre: nombre, clave: clave, umedida: umedida, precio: precio, tipop: tipop, opcion: opcion },
         success: function (data) {
           //tablaPersonas.ajax.reload(null, false);
           id = data[0].id_prod
