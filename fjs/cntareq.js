@@ -37,6 +37,24 @@ $(document).ready(function () {
       },
       sProcessing: 'Procesando...',
     },
+
+
+    rowCallback: function (row, data) {
+      $($(row).find('td')['5']).addClass('text-center')
+      
+
+      if (data[5] == 'ENTREGADO') {
+          //$($(row).find("td")[6]).css("background-color", "warning");
+          $($(row).find('td')[5]).addClass('bg-gradient-green')
+          //$($(row).find('td')['2']).text('PENDIENTE')
+        } else  {
+          //$($(row).find("td")[2]).css("background-color", "success");
+          $($(row).find('td')[5]).addClass('bg-gradient-warning')
+          //$($(row).find('td')['6']).text('ACEPTADO')
+        }
+
+
+  },
   })
   $('[data-toggle="tooltip"]').tooltip()
 

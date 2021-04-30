@@ -12,7 +12,7 @@ include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
 
-$consulta = "SELECT * FROM requisicion WHERE estado_req=1 ORDER BY folio_req";
+$consulta = "SELECT * FROM vrequisicion WHERE estado_req=1 ORDER BY folio_req";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -75,7 +75,8 @@ $message = "";
                                             <th>Fecha</th>
                                             <th>Fraccionamiento</th>
                                             <th>Solicitante</th>
-                                            <th>Entregadp</th>
+                                            <th>Entregado</th>
+                                            <th>Estado</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -89,6 +90,7 @@ $message = "";
                                                 <td><?php echo $dat['fraccionamiento'] ?></td>
                                                 <td><?php echo $dat['solicitante'] ?></td>
                                                 <td><?php echo $dat['entregado'] ?></td>
+                                                <td><?php echo $dat['estado_entrega'] ?></td>
                                                 <td></td>
                                             </tr>
                                         <?php

@@ -1,17 +1,10 @@
-<?php
-/*if (isset($_GET['folio'])) {
-   echo getPlantilla($_GET['folio']);
-}*/
+<link rel="stylesheet" href="../css/estiloreq.css">
+<?php 
 
-
-
-
-function getPlantilla($folio)
-{
     include_once '../bd/conexion.php';
 
+    $folio = (isset($_GET['id'])) ? $_GET['id'] : '';
     $plantilla="";
-
 
 
     if ($folio != "") {
@@ -49,8 +42,8 @@ function getPlantilla($folio)
     <header class="clearfix">
         
         <div id="logo">
-      
-          <img src="img/logo.png" alt="logo.png" style="max-width:120px">
+        <img src="../img/logocompleto.png">
+        <img src="img/logocompleto.png" style="max-width:120px">
         </div>
         <div id="company">
         <h2 class="name">FORMATO DE REQUISICIÓN DE MATERIALES</h2>
@@ -126,5 +119,6 @@ function getPlantilla($folio)
    
   </body>';
 
-    return $plantilla;
-}
+    echo $plantilla;
+
+?>
